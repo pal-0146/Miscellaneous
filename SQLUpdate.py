@@ -20,7 +20,7 @@ def connect_to_db(host, user, password, database):
 
 def update_column_from_csv(conn, table_name, column_name, csv_file, old_col_name, new_col_name):
     try:
-        df = pd.read_csv(csv_file)
+        df = pd.read_csv(csv_file, encoding='latin1')  #pd.read_csv(csv_file)
         df.columns = df.columns.str.strip()  # Remove spaces from column names
         print("📋 CSV Columns:", df.columns)
 
@@ -61,17 +61,17 @@ if __name__ == "__main__":
     HOST = "totalancillary.database.windows.net"
     USER = "DBRW"
     PASSWORD = "JjaT/?(N44v6"
-    DATABASE = "TA-DEV" #"AXIS-API-DEV" #"TA-Dev"
+    DATABASE = "AXIS-API-DEV" #"AXIS-API-DEV" #"TA-Dev"
 
     db_connection = connect_to_db(HOST, USER, PASSWORD, DATABASE)
 
     if db_connection:
         update_column_from_csv(
             db_connection, 
-            "v_RepAccountAR", 
-            "Customer", 
-            "HV360_Clinics.csv",#"HV360_Physicians.csv", #"HV360_Clinics.csv", 
-            "Original Name",  
+            "leEHI_temp", 
+            "patient", 
+            "HV360_Patients.csv",#"HV360_Physicians.csv", #"HV360_Clinics.csv", #"HV360_Patients.csv"
+            "Full Name",  
             "Updated Name"  
         )
         db_connection.close()
